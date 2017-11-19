@@ -33,4 +33,16 @@ const toggleFeature = (filePath, featureName) => {
         }
     }).catch((err) => console.log(JSON.stringify(err)));
 }
-toggleFeature('data.js', 'FEATURE_A');
+
+async function toggleFeatureAsync(filePath, featureName) {
+    const data = await readFile(filePath);
+    const result = applyToggleFeature(featureName, data);
+    await writeFile(filePath, result);
+    
+}
+//toggleFeature('data.js', 'FEATURE_A');
+
+toggleFeatureAsync('data.js', 'FEATURE_A').then(console.log('Complete!'))
+.catch((err) => {
+    console.log(JSON.stringify(err));
+});
